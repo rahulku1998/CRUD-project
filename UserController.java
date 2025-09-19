@@ -26,6 +26,10 @@ public class UserController {
     public Item getItemById(@PathVariable int id){
         return customRepository.findById(id).orElse(null);
     }
+    @GetMapping("/search")
+    public List<Item> searchItems(@RequestParam String keyword) {
+        return customRepository.findByNameContainingIgnoreCase(keyword);
+    }
     @PutMapping("/{id}")
     public Item updateItem(@PathVariable int id,@RequestBody Item updateItem){
         return customRepository.findById(id).map(item->{
@@ -40,3 +44,4 @@ public class UserController {
         return "deleted item with id"+id;
     }
 }
+
